@@ -1,0 +1,84 @@
+:root {
+  --orange: #ff7a00;
+  --orange-dark: #e85d04;
+  --green: #14f195; /* balance + amounts keep their green */
+  --bg: #000;
+  --panel: #0e0e0e;
+  --line: #2a2a2a;
+  --text: #fff;
+  --muted: #d4d4d4;
+}
+
+body { margin: 0; font-family: system-ui, sans-serif; background: var(--bg); color: var(--text); }
+main { max-width: 640px; margin: 0 auto; padding: 24px 16px; }
+header { display: flex; justify-content: space-between; align-items: center; }
+h1 { margin: 0; color: var(--text); font-size: 22px; letter-spacing: -0.01em; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.logo { height: 26px; width: auto; display: block; }
+.net { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--orange); border: 1px solid var(--orange); padding: 2px 8px; border-radius: 999px; }
+.mono { font-family: ui-monospace, Consolas, monospace; }
+.tip-top { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.ago { color: var(--muted); font-size: 12px; white-space: nowrap; }
+.leader .rank { text-align: center; }
+.leader .tot { font-variant-numeric: tabular-nums; }
+h2 { color: var(--text); border-left: 4px solid var(--orange); padding-left: 10px; }
+.sub { color: var(--muted); }
+.bal { color: var(--green); }
+
+.card { background: var(--panel); border: 1px solid var(--line); padding: 16px; border-radius: 12px; margin: 16px 0; }
+label { display: block; font-size: 12px; color: var(--muted); margin: 10px 0 4px; }
+input { width: 100%; box-sizing: border-box; padding: 10px; border-radius: 8px; border: 1px solid #444; background: #000; color: var(--text); }
+input:focus { outline: none; border-color: var(--orange); }
+.row { display: flex; gap: 12px; }
+.row > div { flex: 1; }
+
+button.send { margin-top: 14px; width: 100%; padding: 12px; border: 0; border-radius: 8px; font-weight: 700; font-size: 16px; cursor: pointer; background: var(--orange-dark); color: #fff; }
+button.send:hover:not(:disabled) { background: var(--orange); }
+button.send:disabled { opacity: 0.5; cursor: not-allowed; }
+.status { font-size: 14px; word-break: break-word; color: var(--text); }
+
+.tip, .leader { background: var(--panel); border: 1px solid var(--line); padding: 12px; border-radius: 10px; margin: 8px 0; color: var(--text); }
+.msg { margin: 6px 0; font-style: italic; }
+.tip b { color: var(--green); }
+.tip a { color: var(--orange); font-size: 13px; }
+
+.leader { display: flex; align-items: center; gap: 12px; padding: 10px 12px; }
+.leader.me { border-color: var(--orange); }
+.leader .rank { width: 32px; font-size: 18px; }
+.leader .who { flex: 1; font-family: monospace; }
+.leader .tot { color: var(--green); font-size: 14px; }
+
+/* ---- Wallet button (top right) ---- */
+.wallet-adapter-button { background: var(--orange-dark); color: #fff; font-weight: 700; }
+.wallet-adapter-button:not([disabled]):hover { background: var(--orange); }
+
+/* ---- Wallet popup ---- */
+.wallet-adapter-modal-wrapper { background: #0a0a0a; border: 1px solid var(--line); }
+.wallet-adapter-modal-title, .wallet-adapter-modal-list .wallet-adapter-button { color: #fff; }
+.wallet-adapter-modal-list .wallet-adapter-button:hover { background: #1c1c1c; }
+.wallet-adapter-modal-middle-button, .wallet-adapter-modal-list-more { color: #fff; }
+
+/* Close (X): plain, centered, no circle background */
+.wallet-adapter-modal-button-close {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+}
+.wallet-adapter-modal-button-close:hover { background: transparent; }
+.wallet-adapter-modal-button-close svg { width: 16px; height: 16px; fill: #fff; display: block; }
+.wallet-adapter-modal-button-close:hover svg { fill: var(--orange); }
+
+footer { margin-top: 40px; padding-top: 16px; border-top: 1px solid var(--line); text-align: center; font-size: 13px; color: var(--muted); }
+footer p { margin: 4px 0; }
+footer a { color: var(--orange); text-decoration: none; }
+footer a:hover { text-decoration: underline; }
