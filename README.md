@@ -6,6 +6,12 @@ blockchain (devnet), and the app shows a live feed of recent tips and a leaderbo
 Built by [Brage1025](https://github.com/Brage1025) for the Solana Hackathon (Nov 6–8, 2026), hosted by Major League Hacking.
 This is my first hackathon and my first Solana project.
 
+## Live demo
+
+https://the-solana-tip-jar.netlify.app
+
+The app runs on Solana devnet. To try it you need a Solana wallet such as [Phantom](https://phantom.app) set to Devnet, and free test SOL from [faucet.solana.com](https://faucet.solana.com).
+
 ## Features
 
 - Wallet picker with Phantom, Solflare, Coinbase Wallet and Trust Wallet, plus any other installed Wallet Standard wallet (for example Backpack)
