@@ -22,6 +22,8 @@ type Tip = {
   slot: number;
 };
 
+const WALLET_TIMEOUT_MS = 45_000;
+
 const short = (s: string) => `${s.slice(0, 4)}…${s.slice(-4)}`;
 
 const ago = (t: number | null) => {
@@ -140,7 +142,32 @@ export default function App() {
           })
         );
       }
-      const sig = await sendTransaction(tx, connection);
+      // Give the wallet up to 45 seconds to respond. If it never shows an approval
+      // prompt, stop waiting so the button does not stay stuck on "Sending...".
+      let timedOut = false;
+      let timer: ReturnType<typeof setTimeout> | undefined;
+      const walletCall = sendTransaction(tx, connection);
+      walletCall
+        .then(() => {
+          // The user approved after we gave up: refresh so the tip still shows up.
+          if (timedOut) {
+            setStatus("Your tip was approved late and has been sent.");
+            setTimeout(() => { loadTips(); loadBalance(); }, 3000);
+          }
+        })
+        .catch(() => {});
+      const timeout = new Promise<never>((_, reject) => {
+        timer = setTimeout(() => {
+          timedOut = true;
+          reject(new Error("WALLET_TIMEOUT"));
+        }, WALLET_TIMEOUT_MS);
+      });
+      let sig: string;
+      try {
+        sig = await Promise.race([walletCall, timeout]);
+      } finally {
+        clearTimeout(timer);
+      }
       setStatus("Sent! Waiting for the network to confirm…");
       await connection.confirmTransaction(sig, "confirmed");
       setStatus(`Confirmed · ${short(sig)}`);
@@ -148,7 +175,11 @@ export default function App() {
       loadTips();
       loadBalance();
     } catch (e: any) {
-      setStatus(`Failed: ${e.message ?? e}`);
+      setStatus(
+        e?.message === "WALLET_TIMEOUT"
+          ? "No response from your wallet. Open your wallet, check for a pending request, then try again."
+          : `Failed: ${e.message ?? e}`
+      );
     } finally {
       setBusy(false);
     }
